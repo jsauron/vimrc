@@ -1,0 +1,71 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    vimrc_likeyou                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jsauron <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/01 16:15:54 by jsauron           #+#    #+#              #
+#    Updated: 2019/07/01 18:09:50 by jsauron          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+set nocompatible
+
+" Raccourcis et abbreviations
+iab  #i #include
+imap jj <Esc> "Mapping des commandes en mode insertion
+nmap jj <Esc> "Mapping des commandes en mode normal
+
+" Affichage
+set showmatch   "Affiche les parentheses correspondantes
+set number
+set smartindent
+set autoindent
+set ruler        "Affiche la position actuelle du curseur
+set wrap         "Affiche les lignes trop longues sur plusieurs lignes
+set title        "Met à jour le titre de votre fenêtre ou de votre terminal
+set scrolloff=4  "Affiche un minimum de 4 lignes autour du curseur (pour le scroll)
+set t_Co=256     "Force la coloration
+set background=dark
+set shortmess+=AaO "
+set  cursorline "Afficher la ligne contenant le curseur
+let sbv_open_nerdtree_to_start=1 "Open NERDTree with vimrc_likeyou
+let sbv_open_nerdtree_with_new_tab=1 " Open Nerd Panel with a new tab
+"colorscheme solarized
+
+"Vim correcteur orthographique
+set  spelllang =en,fr "Au premier lancement de vim : il faut retapper "set spelllang=en,fr" en mode commande pour que vim télécharge les dictionnaires.
+set  spell
+set  spellsuggest =5
+
+" Completion
+set omnifunc=syntaxcomplete#Complete "Affiche la complètion automatique
+set  wildmenu    "affiche le menu
+set  wildmode =list:longest,list:full    "affiche toutes les possibilités
+set  wildignore =*.o,*.r,*.so,*.sl,*.tar,*.tgz    "ignorer certains types de fichiers pour la complétion des includes
+
+" Auto folding des fonctions
+function! MyFoldFunction()
+	let line = getline(v:foldstart)
+	let sub = substitute(line,'/\*\|\*/\|^\s+', '', 'g')
+	let lines = v:foldend - v:foldstart + 1
+	return v:folddashes.sub.'...'.lines.' Lines...'.getline(v:foldend)
+endfunction
+set  foldmethod =syntax    "Réduira automatiquement les fonctions et blocs (#region en C# par exemple)
+set  foldtext =MyFoldFunction()    "on utilise notre fonction (optionnel)
+
+" Recherche
+set ignorecase   "Ignore la case lors d'une recherche
+set smartcase    "Si une recherche contient une majuscule, réactive la sensibilité à la case
+set incsearch    "Surligne les résultats de recherche pendant la saisie
+set hlsearch     "Surligne les résultats de recherche
+
+
+set mouse=a
+filetype indent plugin on "Active les comportements spécifiques aux types de fichiers comme la syntaxe et l'indentation.
+
+syntax on         "Active la coloration syntaxique
+
+inoremap ( ()<left> "ferme la parenthese et place le curseur dedansi
+
